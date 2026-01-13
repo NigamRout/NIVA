@@ -1,0 +1,47 @@
+import os
+from dotenv import load_dotenv
+from google import genai
+from google.genai import types
+
+
+def main():
+    # Load environment variables from .env file
+    load_dotenv()                                       # loading Environment variable from .env file
+    # load_dotenv('./../../AI.env')                       # loading Environment variable from a specific .env file
+    # load_dotenv(os.getenv("CREDENTIAL_STORE_FILE_AI"))  # loading Environment variable from a specific .env file
+
+    # Get API KEY and Model name from .env file and if not found then Error out 
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME")
+    if not GEMINI_API_KEY: raise EnvironmentError("GEMINI_API_KEY not found in environment variables.")
+    if not GEMINI_MODEL_NAME: raise EnvironmentError("GEMINI_MODEL_NAME not found in environment variables.")
+    print(f"Using Model: {GEMINI_MODEL_NAME} \n")
+
+    # Define system instruction
+    my_system_instruction = "My name is NIVA"
+
+    # User query to send to Gemini AI model
+    user_query = "Tell me a story about me"
+
+    # Initialize Gemini AI client with the API key
+    gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+
+    # Communicating with Gemini AI model
+    gemini_response = gemini_client.models.generate_content_stream(
+                    model=GEMINI_MODEL_NAME,
+                    contents=user_query,
+                    config=types.GenerateContentConfig( 
+                        system_instruction=my_system_instruction,   
+                        thinking_config=types.ThinkingConfig(thinking_budget=0)
+                    ),
+                )
+
+    print(f"[💻 User Query]: {user_query}\n")
+    print(f"[🤖 AI Response]: ", end="")
+    for chunk in gemini_response: 
+        print(chunk.text, end="")
+
+
+
+if __name__ == "__main__":
+    main()

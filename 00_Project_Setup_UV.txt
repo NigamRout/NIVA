@@ -1,0 +1,26 @@
+
+1. Install UV
+    winget install --id=astral-sh.uv -e
+    or
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    or 
+    pip install uv 
+
+
+2. Install specific Python version through UV
+    uv python install 3.12
+
+
+3. Initiate UV Project with specific python version
+    Go to project folder and run following
+    uv init --python 3.12
+
+4. Create and activate Virtual environment 
+    uv venv 
+    .\.venv\Scripts\activate  
+
+
+5. Install packages through UV and validate
+    uv add python-dotenv panda opencv-python google-genai websockets RealtimeSTT elevenlabs PySide6 Pillow mss
+    uv tree
+    

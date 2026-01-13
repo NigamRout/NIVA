@@ -1,0 +1,13 @@
+[project]
+name = "niva"
+version = "0.1.0"
+description = "Nigam AI Voice Assistant"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "elevenlabs>=2.28.0",
+    "google-genai>=1.56.0",
+    "ipykernel>=7.1.0",
+    "python-dotenv>=1.2.1",
+    "realtimestt>=0.3.104",
+]
